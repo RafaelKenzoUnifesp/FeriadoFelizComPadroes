@@ -1,15 +1,30 @@
 {
-  "name": "feliadofelizcompadroes",
+  "name": "feriadofelizcompadroes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^25.6.0"
-  }
+    "@types/node": "^24.12.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "undici-types": "^7.19.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelKenzoUnifesp/FeriadoFelizComPadroes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RafaelKenzoUnifesp/FeriadoFelizComPadroes/issues"
+  },
+  "homepage": "https://github.com/RafaelKenzoUnifesp/FeriadoFelizComPadroes#readme"
 }
