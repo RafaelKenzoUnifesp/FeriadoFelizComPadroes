@@ -1,6 +1,7 @@
 import { Cart } from "./entities/Cart";
 import { Order } from "./entities/Order";
 import { Products } from "./entities/Product";
+import { CheckoutFacade } from "./facade/CheckoutFacade";
 import { NotificationFactory } from "./factory/NotificationFactory";
 import { PaymentFactory } from "./factory/PaymentFactory";
 import { ShippingFactory } from "./factory/ShippingFactory";    
@@ -20,24 +21,11 @@ function main(): void{
     console.log(`Order ID: ${order.getId()}`);
     console.log(`Status: ${order.getStatus()}`);
 
-    const distanciaPedido = 80;
-    const pesoPedido = 2.5;
-    const shipping = ShippingFactory.createS("normal"); 
-    const shippingCost = shipping.calculate(pesoPedido, distanciaPedido);
-    console.log(`Tipo de frete: ${shipping.getName()} | Valor: R$ ${shippingCost.toFixed(2)}`);
-    const deliveryDays = shipping.deliveryDays(distanciaPedido);
-    console.log(`Prazo de entrega estimado: ${deliveryDays} dias úteis`);
+    const checkout = new CheckoutFacade();
 
-    const valorFinal = order.getTotal() + shippingCost;
-    console.log(`TOTAL A PAGAR (Produtos + Frete): R$ ${valorFinal.toFixed(2)}`);
+    checkout.finalizarcompra(order, 80, 2.5, "pix", "client@email.com");
 
-    const payment = PaymentFactory.createP("pix");
-    const paymentResult = payment.pay(valorFinal);
-    console.log(`Forma de pagamento: ${payment.getName()} | Sucesso: ${paymentResult}`);
-
-
-    const notification = NotificationFactory.createN("email");
-    notification.send("cliente@email.com", `Seu pedido ${order.getId()} foi criado com sucesso.`);
+    console.log(`Status final do pedido: ${order.getStatus()}`);
 } 
 main();
 
