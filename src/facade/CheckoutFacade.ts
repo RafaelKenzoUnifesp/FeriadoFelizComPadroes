@@ -4,6 +4,8 @@ import { Order } from "../entities/Order";
 import { NotificationFactory } from "../factory/NotificationFactory";
 import { PaymentFactory } from "../factory/PaymentFactory";
 import { ShippingFactory } from "../factory/ShippingFactory";   
+import { PaymentProxy } from "../proxy/PaymentProxy";
+
 
 export class CheckoutFacade {
     private readonly appConfig: AppConfig;
@@ -13,7 +15,7 @@ export class CheckoutFacade {
         this.appConfig = AppConfig.getInstance();
         this.logger = Logger.getInstance();
     }   
-    public finalizarcompra(order: Order, distancia: number, peso: number, paymentMethod: string, notificationMethod: string): void {
+    public finalizarcompra(order: Order, paymentType: string,shippingType: string,peso: number, distancia: number,custumerEmail: string): void {
         this.logger.log(`Iniciando checkout para o pedido ${order.getId()}`);
         
         const shipping = ShippingFactory.createS("normal");
@@ -24,7 +26,7 @@ export class CheckoutFacade {
         const valorFinal = order.getTotal() + shippingCost;
         this.logger.log(`Valor total a pagar (Produtos + Frete): ${this.appConfig.getMoeda()} ${valorFinal.toFixed(2)}`);
 
-        const payment = PaymentFactory.createP(paymentMethod);
+        const payment = PaymentFactory.createP(paymentType);
         const paymentResult = payment.pay(valorFinal);
         order.updateStatus("pago");
         this.logger.log(`Pagamento processado com sucesso para o pedido ${order.getId()}`);

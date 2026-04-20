@@ -15,15 +15,13 @@ function main(): void{
     cart.addItem(test, 1);
     cart.addItem(test2, 2);
 
-    console.log(`Total do carrinho: R$ ${cart.getTotal().toFixed(2)}`);
-
     const order = new Order(1, cart.getItems(), cart.getTotal());
     console.log(`Order ID: ${order.getId()}`);
     console.log(`Status: ${order.getStatus()}`);
 
     const checkout = new CheckoutFacade();
 
-    checkout.finalizarcompra(order, 80, 2.5, "pix", "client@email.com");
+    checkout.finalizarcompra(order, "external", "express",3, 180,"client@email.com");
 
     console.log(`Status final do pedido: ${order.getStatus()}`);
 } 
