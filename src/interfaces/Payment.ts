@@ -1,4 +1,4 @@
 export interface Payment{
-    pay(amount: number): void;
+    pay(amount: number): boolean;
     getName(): string;
 }

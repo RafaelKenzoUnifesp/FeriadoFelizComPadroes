@@ -2,6 +2,8 @@ import { Payment } from "../interfaces/Payment";
 import { Boleto } from "../payments/Boleto";
 import { Pix } from "../payments/Pix";
 import { Card } from "../payments/Card";
+import { PaymentGat } from "../adapters/PaymentGat";
+import { PaymentAdptr } from "../adapters/PaymentAdptr";
 
 export class PaymentFactory {
     public static createP(type: string): Payment{
@@ -12,8 +14,11 @@ export class PaymentFactory {
                 return new Pix();
             case "card":
                 return new Card();
+            case "external":
+                return new PaymentAdptr(new PaymentGat());
             default:
                 throw new Error(`Tipo de pagamento não aceito: ${type}`);
         }
     }
 }
+
