@@ -10,7 +10,7 @@ export class NotificationFactory {
             case "sms":
                 return new Sms();
             default:
-                throw new Error("Tipo de notificação não aceito");
+                throw new Error(`Tipo de notificação não aceito: ${type}`);
         }
     }
 }

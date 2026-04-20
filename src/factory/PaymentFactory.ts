@@ -13,7 +13,7 @@ export class PaymentFactory {
             case "card":
                 return new Card();
             default:
-                throw new Error("Tipo de pagamento não aceito");
+                throw new Error(`Tipo de pagamento não aceito: ${type}`);
         }
     }
 }
