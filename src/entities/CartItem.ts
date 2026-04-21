@@ -1,15 +1,15 @@
-import { Products } from "./Product";
+import { Product } from "./Product";
 
 export class CartItem {
     constructor(
-        private readonly product: Products,
+        private readonly product: Product,
         private quantity: number,
     ){
         if(quantity <= 0){
             throw new Error("Quantidade deve ser maior que zero");
         }
     }
-    public getProduct(): Products {
+    public getProduct(): Product {
         return this.product;
     }
     public getQuantity(): number {
