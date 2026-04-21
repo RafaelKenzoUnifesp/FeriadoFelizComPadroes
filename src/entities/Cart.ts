@@ -1,9 +1,9 @@
-import { Products } from "./Product";
+import { Product } from "./Product";
 import { CartItem } from "./CartItem";
 
 export class Cart {
     private readonly items: CartItem[] = [];
-    public addItem(product: Products, quantity: number): void {
+    public addItem(product: Product, quantity: number): void {
         if (quantity <= 0) {
             throw new Error("Quantidade deve ser maior que zero");
         }

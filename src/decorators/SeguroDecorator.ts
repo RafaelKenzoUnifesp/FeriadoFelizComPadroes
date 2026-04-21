@@ -6,6 +6,6 @@ export class SeguroDecorator extends OrderDecorator {
   }
 
   public getCost(): number {
-    return this.orderComponent.getCost() + 25;
+    return this.orderComponent.getCost() + 20;
   }
 }
