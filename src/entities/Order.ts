@@ -1,9 +1,14 @@
 import {CartItem} from "./CartItem";
+import { Observer } from "../interfaces/Observer";
+import { Subject } from "../interfaces/Subject";
+import { OrderComponent } from "../interfaces/OrderComponent";
+
 
 export type OrderStatus = "criado" | "pago" | "enviado" | "entregue" | "cancelado";
 
-export class Order {
+export class Order implements Subject, OrderComponent {
     private status: OrderStatus;
+    private readonly observers: Observer[] = [];
 
     constructor(
         private readonly id: number,
@@ -35,5 +40,26 @@ export class Order {
     }
     public updateStatus(newStatus: OrderStatus): void {
         this.status = newStatus;
+        this.notifyObserver();
+    }
+    public addObserver(observer: Observer): void {
+        this.observers.push(observer);
+    }
+    public removeObserver(observer: Observer): void {
+        const index = this.observers.indexOf(observer);
+        if(index !== -1){
+            this.observers.splice(index, 1);
+        }
+    }
+    public notifyObserver(): void {
+        for(const observer of this.observers){
+            observer.update(this);
+        }
+    }
+    public getDescription(): string {
+        return `Pedido ${this.id}`;
+    }
+    public getCost(): number {
+        return this.total;
     }
 }
